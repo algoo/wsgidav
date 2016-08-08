@@ -1936,7 +1936,7 @@ class WSGIGateway_10(WSGIGateway):
             # the *real* server protocol is (and what features to support).
             # See http://www.faqs.org/rfcs/rfc2145.html.
             'ACTUAL_SERVER_PROTOCOL': req.server.protocol,
-            'PATH_INFO': req.path.decode('ISO-8859-1'),
+            'PATH_INFO': req.path.decode('ISO-8859-1').encode('latin1').decode(),
             'QUERY_STRING': req.qs.decode('ISO-8859-1'),
             'REMOTE_ADDR': req.conn.remote_addr or '',
             'REMOTE_PORT': str(req.conn.remote_port or ''),
