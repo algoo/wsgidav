@@ -1936,6 +1936,8 @@ class WSGIGateway_10(WSGIGateway):
             # the *real* server protocol is (and what features to support).
             # See http://www.faqs.org/rfcs/rfc2145.html.
             'ACTUAL_SERVER_PROTOCOL': req.server.protocol,
+            # This fix is made because character outside the standard ASCII table aren't correctly decoded in python3
+            # You can read about it here : http://lucumr.pocoo.org/2013/7/2/the-updated-guide-to-unicode/
             'PATH_INFO': req.path.decode('ISO-8859-1').encode('latin1').decode(),
             'QUERY_STRING': req.qs.decode('ISO-8859-1'),
             'REMOTE_ADDR': req.conn.remote_addr or '',
