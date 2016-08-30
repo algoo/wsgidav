@@ -119,8 +119,10 @@ class WsgiDavDirBrowser(BaseMiddleware):
         self._verbose = 2
 
     def __call__(self, environ, start_response):
-        path = environ["PATH_INFO"]
-        
+        # Path is not correctly encoded, previously line was
+        # path = environ["PATH_INFO"]
+        path = util.toUnicode(environ["PATH_INFO"])
+                
         davres = None
         if environ["wsgidav.provider"]:
             davres = environ["wsgidav.provider"].getResourceInst(path, environ)
